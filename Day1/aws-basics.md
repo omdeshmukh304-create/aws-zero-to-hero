@@ -125,7 +125,7 @@ SaaS provides ready-to-use software over the internet without requiring users to
 - Slack
 
 ---
-
+![alt text](<WhatsApp Image 2026-07-04 at 8.09.57 PM.jpeg>)
 #  Core AWS Services
 
 ## Amazon EC2

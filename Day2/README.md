@@ -1,89 +1,235 @@
-# 🔒 Day 2 – AWS WAF (Web Application Firewall)
+# 🔒 AWS WAF for Web Application Protection
+## Day 2 – 7 Days of AWS Challenge
 
-Welcome to **Day 2** of the **7 Days of AWS Challenge** 🚀  
-Today, you’ll learn how AWS helps you **secure your web applications** from attacks using **AWS WAF (Web Application Firewall).**
-
----
-
-## 🧠 What Is AWS WAF?
-
-**AWS WAF** is a managed service that protects your web apps from common exploits such as  
-**SQL Injection**, **Cross-Site Scripting (XSS)**, and **malicious IP requests**.  
-It monitors incoming HTTP(S) traffic and allows you to define rules to **block, allow, or count** requests based on patterns you choose.
-
-**Example:**  
-If you host a website on AWS EC2 or through CloudFront, you can use AWS WAF to block traffic from a specific country, IP range, or suspicious query patterns.
-
-📖 [Official AWS Docs → Getting Started with WAF](https://docs.aws.amazon.com/waf/latest/developerguide/getting-started.html)
+As part of **Day 2 of the 7 Days of AWS Challenge**, I learned how to secure a web application using **AWS WAF (Web Application Firewall)**. Along with implementing AWS WAF, I also built a scalable infrastructure using **Application Load Balancer (ALB)** and **Auto Scaling Group (ASG)** to improve application availability.
 
 ---
 
-## 🎯 Tasks for Day 2
+# 📌 Project Objective
 
-1. **Learn & Share**
-   - Understand how AWS WAF works and how it protects your apps.  
-   - Write a short LinkedIn post summarizing what you learned.  
-   - Use hashtags **#7DaysOfAWS** and **#AWSwithTWS**, and tag [@TrainWithShubham](https://www.linkedin.com/in/shubhamlondhe1996/).
+The objective of this project was to:
 
-2. **Hands-On Project — Implement AWS WAF for Web App Protection**
-
-   **Scenario:**  
-   You need to secure a web application hosted on AWS against common vulnerabilities.
-
-   **Steps:**
-   - **Set Up a Web Application:**  
-     Deploy a sample web app on an **EC2 instance** in your AWS account.
-   - **Configure AWS WAF:**  
-     Create a **Web ACL** and define rules to block malicious requests (e.g., SQL injection patterns, blocked IPs).
-   - **Attach WAF:**  
-     Associate the Web ACL with your **CloudFront distribution**, **ALB**, or directly with **API Gateway**.
-   - **Test WAF:**  
-     Send test requests that trigger your rules and confirm WAF is blocking them.
-
-3. **Document & Engage**
-   - Share screenshots or a short demo video of your WAF setup.  
-   - Write a LinkedIn post or short blog:  
-     *“How I Secured My Web App on AWS Using WAF — Day 2 of #7DaysOfAWS”*
+- Deploy a scalable web application architecture.
+- Configure an Application Load Balancer.
+- Configure an Auto Scaling Group.
+- Simulate CPU load using the `stress` utility.
+- Protect the application using AWS WAF.
+- Monitor incoming requests using AWS WAF.
 
 ---
 
-## 💬 Engagement Activity
+# 🏗️ Architecture
 
-✅ Post your **Day 2** learnings on **LinkedIn** using  
-> `#7DaysOfAWS` `#AWSwithTWS`
+The application architecture consists of:
 
-Mention:
-> “Today I secured a web application on AWS using WAF — my Day 2 challenge in #7DaysOfAWS with @TrainWithShubham 🔒🚀”
+- Internet Users
+- AWS WAF
+- Application Load Balancer
+- Auto Scaling Group
+- Amazon EC2 Instances
 
-You can also:
-- Like or comment on 2 other participants’ posts.  
-- Ask a question in our [Discord Community](https://discord.gg/7GjDgDHR49).  
-- Share your blog link on the server to inspire others.
-
-The more you engage, the more you grow 🌟
+![alt text](<WhatsApp Image 2026-07-04 at 9.20.15 PM.jpeg>)
 
 ---
 
-## 🧩 Finding It Challenging?
+# 🛠️ AWS Services Used
 
-Don’t worry — reach out for help on:  
-- 💬 [LinkedIn](https://www.linkedin.com/in/shubhamlondhe1996/)  
-- 💭 [Discord Community](https://discord.gg/7GjDgDHR49)  
-- 💬 [Official Website](https://trainwithshubham.com)
-
----
-
-## 📚 References
-
-- [Getting Started with AWS WAF](https://docs.aws.amazon.com/waf/latest/developerguide/getting-started.html)  
-- [How AWS WAF Works](https://docs.aws.amazon.com/waf/latest/developerguide/how-aws-waf-works.html)
+- Amazon EC2
+- Application Load Balancer (ALB)
+- Auto Scaling Group (ASG)
+- Launch Template
+- AWS WAF
+- AWS Managed Rule Groups
+- CloudWatch
+- Ubuntu Server
 
 ---
 
-## 🌟 Bonus Tip
-> Security is not a one-time setup — it’s a habit.  
-> Keep testing and updating your WAF rules as your application grows.  
-> Share what you secured today and encourage others to protect their apps too!  
+# 🚀 Part 1 – Configure Auto Scaling Infrastructure
 
-Happy Learning ✨  
-**– TrainWithShubham**
+## Step 1 – Review Auto Scaling Configuration
+
+Configured the Auto Scaling Group using the Launch Template and attached it to the Application Load Balancer.
+
+The following configuration was verified:
+
+- Load Balancer
+- Target Group
+- Health Checks
+- Desired Capacity
+- Minimum Capacity
+- Maximum Capacity
+
+![alt text](<Screenshot 2026-07-04 161309.png>)
+
+---
+
+Configured the scaling policy to automatically launch additional EC2 instances whenever CPU utilization increases.
+
+![alt text](<Screenshot 2026-07-04 161336.png>)
+
+---
+
+Reviewed notifications, tags and additional Auto Scaling settings before creating the Auto Scaling Group.
+
+![alt text](<Screenshot 2026-07-04 161424.png>)
+
+---
+
+## Step 2 – Simulate High CPU Utilization
+
+Installed the **stress** package and generated CPU load.
+
+```bash
+sudo apt update
+
+sudo apt install stress
+
+stress -c 70
+```
+
+This command creates high CPU utilization, allowing the Auto Scaling policy to launch additional EC2 instances when required.
+
+![alt text](<Screenshot 2026-07-04 164518.png>)
+
+---
+
+# 🔒 Part 2 – Secure the Application Using AWS WAF
+
+## Step 3 – Create a Web ACL
+
+Opened AWS WAF & Shield and created a new **Regional Web ACL**.
+
+Configured:
+
+- Web ACL Name
+- AWS Region
+- Regional Resources
+
+![alt text](<WhatsApp Image 2026-07-04 at 9.01.30 PM.jpeg>)
+---
+
+## Step 4 – Configure AWS Managed Rules
+
+Added AWS Managed Rule Groups to protect the application.
+
+Configured Rule Sets:
+
+- AWS Core Rule Set
+- Known Bad Inputs Rule Set
+- SQL Injection Rule Set
+- Linux Rule Set
+
+These rules automatically inspect and block malicious requests.
+
+![alt text](<WhatsApp Image 2026-07-04 at 9.01.31 PM.jpeg>)
+---
+
+Verified the configured Managed Rule Groups before proceeding to the next step.
+
+![alt text](<WhatsApp Image 2026-07-04 at 9.01.30 PM (1).jpeg>)
+
+---
+
+## Step 5 – Associate Web ACL with Application Load Balancer
+
+Associated the Web ACL with the existing Application Load Balancer so that every incoming HTTP request is inspected before reaching the application.
+
+![alt text](<WhatsApp Image 2026-07-04 at 9.01.30 PM (2).jpeg>)
+
+---
+
+## Step 6 – Verify Web ACL Configuration
+
+Verified:
+
+- Web ACL Name
+- Scope
+- Default Action
+- Associated Resource
+- Capacity Units
+
+This confirmed that AWS WAF was successfully protecting the Application Load Balancer.
+
+![alt text](<WhatsApp Image 2026-07-04 at 9.01.29 PM.jpeg>)
+
+---
+
+## Step 7 – Monitor Traffic
+
+Opened the **Logging & Metrics** dashboard to monitor:
+
+- Total Requests
+- Allowed Requests
+- Blocked Requests
+- Request Rate
+
+This dashboard provides visibility into incoming traffic and blocked malicious requests.
+
+![alt text](<WhatsApp Image 2026-07-04 at 9.01.29 PM (1).jpeg>)
+
+---
+
+# 🔐 Security Features
+
+- AWS WAF
+- Web ACL
+- AWS Managed Rules
+- SQL Injection Protection
+- Cross-Site Scripting (XSS) Protection
+- Bad Input Detection
+- Application Load Balancer Protection
+- Logging & Metrics
+
+---
+
+# 📈 Project Outcome
+
+Successfully built a scalable and secure AWS architecture by combining:
+
+- Amazon EC2
+- Application Load Balancer
+- Auto Scaling Group
+- AWS WAF
+
+The Auto Scaling Group automatically launches additional EC2 instances during increased CPU utilization, while AWS WAF inspects and filters incoming HTTP requests before they reach the application.
+
+---
+
+# 🎯 Learning Outcomes
+
+During this hands-on project, I learned:
+
+- How Application Load Balancer distributes incoming traffic.
+- How Auto Scaling improves application availability.
+- How to simulate CPU load using the `stress` utility.
+- How AWS WAF protects web applications.
+- How AWS Managed Rules defend against common web attacks.
+- How to associate AWS WAF with an Application Load Balancer.
+- How to monitor requests using AWS WAF Logging & Metrics.
+
+---
+
+# 📸 Screenshot Sequence
+
+| Image | Description |
+|--------|-------------|
+| Image 1 | Architecture Diagram |
+| Image 2 | Auto Scaling Review (Load Balancer & Group Size) |
+| Image 3 | Auto Scaling Scaling Policy |
+| Image 4 | Notifications & Tags |
+| Image 5 | CPU Stress Test |
+| Image 6 | Create Web ACL |
+| Image 7 | Configure Managed Rules |
+| Image 8 | Review Managed Rules |
+| Image 9 | Associated AWS Resources (ALB) |
+| Image 10 | Web ACL Overview |
+| Image 11 | Logging & Metrics |
+
+---
+
+# 👨‍💻 Author
+
+**Om Deshmukh**
+
+Completed as part of **Day 2 – 7 Days of AWS Challenge**, where I implemented AWS WAF to secure a web application while using Auto Scaling and an Application Load Balancer to build a highly available and scalable AWS architecture.
